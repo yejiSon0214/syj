@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로또 번호 생성기</title>
+  <style>
+    .container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .lotto-ball {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      line-height: 40px;
+      margin-right: 10px;
+    }
+    #lotto-balls{
+      margin-top: 20px;
+    }
+
+    /* 다른 번호에 맞게 추가적인 공의 색상을 정의할 수 있습니다. */
+    .lotto-ball-1 {
+      background-color: #FF9800;
+    }
+
+    .lotto-ball-2 {
+      background-color: #2196F3;
+    }
+
+    .lotto-ball-3 {
+      background-color: #F44336;
+    }
+
+    /* 다른 번호에 맞게 추가적인 공의 색상 클래스를 정의할 수 있습니다. */
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>로또 번호 생성기</h1>
+    <button onclick="generateLottoNumbers()">번호 생성</button>
+    <div id="lotto-balls"></div>
+  </div>
+
+  <script>
+    function generateLottoNumbers() {
+      const lottoBallsContainer = document.getElementById('lotto-balls');
+      lottoBallsContainer.innerHTML = '';
+
+      const numbers = Array.from({length: 45}, (_, i) => i + 1);
+      const selectedNumbers = [];
+      for (let i = 0; i < 6; i++) {
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        const selectedNumber = numbers.splice(randomIndex, 1)[0];
+        selectedNumbers.push(selectedNumber);
+      }
+
+      selectedNumbers.forEach((number, index) => {
+        const lottoBall = document.createElement('div');
+        lottoBall.classList.add('lotto-ball');
+        lottoBall.style.backgroundColor = getRandomColor();
+        lottoBall.textContent = number;
+        lottoBallsContainer.appendChild(lottoBall);
+      });
+    }
+
+    function getRandomColor() {
+      const colors = ['#FF9800', '#2196F3', '#F44336', '#4CAF50', '#9C27B0', '#FFEB3B', '#03A9F4', '#E91E63', '#00BCD4', '#8BC34A'];
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      return colors[randomIndex];
+    }
+  </script>
+</body>
+</html>
